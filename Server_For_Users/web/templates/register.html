@@ -1,0 +1,84 @@
+{% extends 'base.html' %} {% block title %}Register{% endblock %} {% block head
+%}
+<script src="{{ url_for('static', filename='js/register.js') }}"></script>
+<!-- FIX: DOMContentLoaded + checkConnection removed — base.html handles
+       await fetchContractDetails() then checkConnection() automatically -->
+{% endblock %} {% block content %}
+
+<div class="page-header fade-up">
+	<div class="page-header__left">
+		<div class="page-header__eyebrow">Identity Registration</div>
+		<h2>Create Account</h2>
+		<p>Bind your identity to your on-chain wallet address.</p>
+	</div>
+</div>
+
+<div
+	id="registerationFormDiv"
+	style="max-width: 620px"
+	class="fade-up fade-up-1"
+>
+	<div class="form-panel">
+		<div class="form-panel__header">
+			<h3>Identity Details</h3>
+			<p>
+				Your information will be stored and linked to your wallet address
+				on-chain.
+			</p>
+		</div>
+		<div class="form-panel__body">
+			<form id="registerForm" onsubmit="registerUser(event)">
+				<div class="form-grid">
+					<div class="form-group">
+						<label for="firstName">First Name</label>
+						<input
+							type="text"
+							id="firstName"
+							placeholder="e.g. Rajesh"
+							autocomplete="given-name"
+							required
+						/>
+					</div>
+					<div class="form-group">
+						<label for="lastName">Last Name</label>
+						<input
+							type="text"
+							id="lastName"
+							placeholder="e.g. Kumar"
+							autocomplete="family-name"
+							required
+						/>
+					</div>
+					<div class="form-group">
+						<label for="dob">Date of Birth</label>
+						<input type="date" id="dob" autocomplete="bday" required />
+					</div>
+					<div class="form-group">
+						<label for="aadharNo">Aadhaar Number</label>
+						<input
+							type="text"
+							id="aadharNo"
+							placeholder="XXXX XXXX XXXX"
+							pattern="[\d\s]{12,14}"
+							title="Enter a valid 12-digit Aadhaar number"
+							inputmode="numeric"
+							required
+						/>
+					</div>
+				</div>
+				<div class="form-footer">
+					<div class="checkbox-group">
+						<input id="registerCb" type="checkbox" required />
+						<label for="registerCb">I accept the terms and conditions</label>
+					</div>
+					<a href="/" class="btn btn--ghost">← Back</a>
+					<button type="submit" id="registerButton" class="btn btn--primary">
+						Register on Chain
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

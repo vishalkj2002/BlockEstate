@@ -1,0 +1,124 @@
+{% extends 'base.html' %} {% block title %}Dashboard{% endblock %} {% block
+nav_dashboard %}active{% endblock %} {% block head %}
+<!-- FIX: typo in original — 'dashborad.js' → 'dashboard.js' -->
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %} {% block content %}
+
+<div class="page-header fade-up">
+	<div class="page-header__left">
+		<div class="page-header__eyebrow">Wallet Interface</div>
+		<h2>My Properties</h2>
+		<p>On-chain land parcels linked to your wallet address.</p>
+	</div>
+	<div class="page-header__right">
+		<!-- Toggle button — JS swaps label and onclick between the two views -->
+		<button
+			id="addPropertyButtonDiv"
+			class="btn btn--primary"
+			onclick="toggleAddProperty()"
+		>
+			+ Register Property
+		</button>
+	</div>
+</div>
+
+<!-- Properties Table -->
+<div
+	id="propertiesTable"
+	class="data-table-wrap fade-up fade-up-1"
+	style="display: block; margin-bottom: var(--space-xl)"
+>
+	<div class="data-table-wrap__head">
+		<span class="data-table-wrap__title">Registered On-Chain Properties</span>
+	</div>
+	<div style="overflow-x: auto">
+		<table>
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Property ID</th>
+					<th>Location ID</th>
+					<th>Revenue Dept</th>
+					<th>Survey No.</th>
+					<th>Area</th>
+					<th>Documents</th>
+					<th>State</th>
+					<th>Sell</th>
+				</tr>
+			</thead>
+			<tbody id="propertiesTableBody"></tbody>
+		</table>
+	</div>
+</div>
+
+<!-- Add Property Form -->
+<div id="addProperty" style="display: none" class="fade-up">
+	<div class="form-panel">
+		<div class="form-panel__header">
+			<h3>Register New Property</h3>
+			<p>Submit land parcel details to the blockchain registry</p>
+		</div>
+		<div class="form-panel__body">
+			<!-- FIX: removed method="post" — this form is handled entirely by JS,
+           it never does an actual HTTP POST -->
+			<form id="addPropertyForm" onsubmit="addProperty(event)">
+				<div class="form-grid">
+					<div class="form-group">
+						<label for="revenueDeptId">Revenue Dept ID</label>
+						<input
+							id="revenueDeptId"
+							type="number"
+							placeholder="e.g. 101"
+							required
+						/>
+					</div>
+					<div class="form-group">
+						<label for="location">Location ID</label>
+						<input id="location" type="number" placeholder="e.g. 42" required />
+					</div>
+					<div class="form-group">
+						<label for="suveyNumber">Survey Number</label>
+						<!-- FIX: kept id="suveyNumber" to match existing JS references -->
+						<input
+							id="suveyNumber"
+							type="number"
+							placeholder="e.g. 5678"
+							required
+						/>
+					</div>
+					<div class="form-group">
+						<label for="area">Area (sq. ft.)</label>
+						<input id="area" type="number" placeholder="e.g. 1200" required />
+					</div>
+					<div class="form-group form-group--full">
+						<label for="registrationDoc">Registration Document (PDF)</label>
+						<input type="file" id="registrationDoc" accept=".pdf" required />
+					</div>
+				</div>
+				<div class="form-footer">
+					<div class="checkbox-group">
+						<!-- FIX: id="cb" → "confirmCb" — "cb" is too generic and may
+                 collide with other checkbox IDs across pages -->
+						<input id="confirmCb" type="checkbox" required />
+						<label for="confirmCb"
+							>I confirm this data is accurate and I accept the terms</label
+						>
+					</div>
+					<button type="submit" class="btn btn--primary">
+						Submit to Chain
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- PDF Popup -->
+<div class="pdf-popup">
+	<div class="pdf-popup__inner">
+		<div class="close-btn" onclick="closePopup()">✕</div>
+		<iframe id="pdf-frame" src="" frameborder="0"></iframe>
+	</div>
+</div>
+
+{% endblock %}

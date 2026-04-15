@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Revenue Department Dashboard · BlockEstate</title>
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='css/design-system.css') }}"
+		/>
+		<script src="{{ url_for('static', filename='js/contractsDetails.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/web3.min.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+		<script>
+			// FIX: replaced onload="checkConnection()" on <body> with this block.
+			// onload fires before fetchContractDetails() resolves, so window._contracts
+			// is still undefined when checkConnection() runs. await fixes the race.
+			document.addEventListener("DOMContentLoaded", async () => {
+				try {
+					await fetchContractDetails();
+				} catch (e) {
+					console.error("Failed to load contract details:", e);
+				}
+				checkConnection();
+			});
+		</script>
+	</head>
+	<!-- FIX: removed onload="checkConnection()" — handled by the script above -->
+	<body>
+		<header class="site-header">
+			<div class="header-logo">
+				<div class="header-logo__hex">
+					<svg viewBox="0 0 44 44" fill="none">
+						<polygon
+							points="22,2 40,12 40,32 22,42 4,32 4,12"
+							stroke="rgba(245,166,35,0.6)"
+							stroke-width="1.5"
+							fill="rgba(245,166,35,0.06)"
+						/>
+					</svg>
+					<span class="header-logo__initials" style="color: var(--amber)"
+						>RD</span
+					>
+				</div>
+				<div class="header-logo__text">
+					<div class="header-logo__name">Revenue Dept</div>
+					<div class="header-logo__tag" style="color: var(--amber)">
+						Authority Node
+					</div>
+				</div>
+			</div>
+			<div class="header-right">
+				<!-- FIX: <button> with no action → <span> — it's a display element only -->
+				<span
+					id="nameOfUserButton"
+					style="
+						background: transparent;
+						border: 1px solid var(--border);
+						color: var(--amber);
+						font-family: &quot;JetBrains Mono&quot;, monospace;
+						font-size: 0.75rem;
+						padding: 5px 14px;
+						border-radius: 4px;
+					"
+				>
+					<span id="nameOfUser"></span>
+				</span>
+				<a href="/logout" class="btn btn--ghost btn--sm">Disconnect</a>
+			</div>
+		</header>
+
+		<div id="notifyUser" role="alert"></div>
+
+		<main>
+			<div class="page-header fade-up">
+				<div class="page-header__left">
+					<div class="page-header__eyebrow">Authority Dashboard</div>
+					<h2>Property Registry</h2>
+					<p>
+						Revenue Department
+						<span
+							id="revenueDeptId"
+							style="
+								color: var(--amber);
+								font-family: &quot;JetBrains Mono&quot;, monospace;
+							"
+						></span>
+						· Verify and approve land registrations.
+					</p>
+				</div>
+			</div>
+
+			<div
+				id="propertiesTable"
+				class="data-table-wrap fade-up fade-up-1"
+				style="display: block"
+			>
+				<div class="data-table-wrap__head">
+					<span
+						class="data-table-wrap__title"
+						style="--indicator-color: var(--amber)"
+					>
+						<span style="display: inline-flex; align-items: center; gap: 10px">
+							<span
+								style="
+									width: 3px;
+									height: 14px;
+									background: linear-gradient(var(--amber), var(--cyan));
+									border-radius: 2px;
+									display: inline-block;
+								"
+							></span>
+							Registered Properties
+						</span>
+					</span>
+				</div>
+				<div style="overflow-x: auto">
+					<table>
+						<thead>
+							<tr>
+								<th>Property ID</th>
+								<th>Location ID</th>
+								<th>Survey No.</th>
+								<th>Area</th>
+								<th>Documents</th>
+								<th>State</th>
+							</tr>
+						</thead>
+						<tbody id="propertiesTableBody"></tbody>
+					</table>
+				</div>
+			</div>
+		</main>
+
+		<div class="pdf-popup">
+			<div class="pdf-popup__inner">
+				<div class="close-btn" onclick="closePopup()">✕</div>
+				<iframe id="pdf-frame" src="" frameborder="0"></iframe>
+			</div>
+		</div>
+
+		<footer class="site-footer">
+			<div class="site-footer__inner">
+				<p>Revenue Department Portal · BlockEstate · © 2026</p>
+			</div>
+		</footer>
+
+		<div id="loadingDiv">
+			<div
+				class="loader-ring"
+				style="border-top-color: var(--amber); box-shadow: var(--glow-amber)"
+			></div>
+			<span id="loadingText" style="color: var(--amber)">Loading…</span>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Contact — BlockEstate</title>
+		<meta
+			name="description"
+			content="Get in touch with the BlockEstate Land Registry Portal team."
+		/>
+		<meta property="og:title" content="Contact — BlockEstate" />
+		<meta property="og:type" content="website" />
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='css/design-system.css') }}"
+		/>
+		<style>
+			/* ── Layout ── */
+			.contact-layout {
+				max-width: 1280px;
+				margin: 0 auto;
+				padding: var(--space-2xl) var(--space-xl);
+				display: grid;
+				grid-template-columns: 1fr 1.4fr;
+				gap: var(--space-2xl);
+				align-items: start;
+				position: relative;
+				z-index: 1;
+			}
+
+			/* ── Left panel ── */
+			.contact-info__eyebrow {
+				font-family: "JetBrains Mono", monospace;
+				font-size: 0.65rem;
+				color: var(--cyan);
+				letter-spacing: 2.5px;
+				text-transform: uppercase;
+				margin-bottom: var(--space-md);
+				display: flex;
+				align-items: center;
+				gap: 10px;
+			}
+
+			.contact-info__eyebrow::before {
+				content: "";
+				width: 24px;
+				height: 1px;
+				background: var(--cyan);
+			}
+
+			.contact-info__title {
+				font-family: "Syne", sans-serif;
+				font-size: clamp(1.8rem, 3vw, 2.8rem);
+				font-weight: 800;
+				line-height: 1.1;
+				color: var(--text-primary);
+				margin-bottom: var(--space-lg);
+			}
+
+			.contact-info__title span {
+				display: block;
+				background: linear-gradient(135deg, var(--cyan), var(--green));
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+			}
+
+			.contact-info__desc {
+				color: var(--text-secondary);
+				font-size: 0.9rem;
+				line-height: 1.8;
+				margin-bottom: var(--space-xl);
+			}
+
+			/* Contact detail cards */
+			.contact-details {
+				display: flex;
+				flex-direction: column;
+				gap: var(--space-md);
+			}
+
+			.contact-detail {
+				background: var(--panel);
+				border: 1px solid var(--border);
+				border-radius: var(--radius-lg);
+				padding: var(--space-md) var(--space-lg);
+				display: flex;
+				align-items: center;
+				gap: var(--space-md);
+				transition: border-color 0.2s;
+				animation: fadeUp 0.5s ease both;
+			}
+
+			.contact-detail:nth-child(1) {
+				animation-delay: 0.1s;
+			}
+			.contact-detail:nth-child(2) {
+				animation-delay: 0.2s;
+			}
+			.contact-detail:nth-child(3) {
+				animation-delay: 0.3s;
+			}
+
+			.contact-detail:hover {
+				border-color: rgba(0, 212, 255, 0.3);
+			}
+
+			.contact-detail__icon {
+				width: 40px;
+				height: 40px;
+				background: var(--cyan-glow);
+				border: 1px solid rgba(0, 212, 255, 0.2);
+				border-radius: var(--radius-md);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 1rem;
+				flex-shrink: 0;
+			}
+
+			.contact-detail__label {
+				font-family: "JetBrains Mono", monospace;
+				font-size: 0.6rem;
+				color: var(--text-muted);
+				letter-spacing: 1.5px;
+				text-transform: uppercase;
+				margin-bottom: 3px;
+			}
+
+			.contact-detail__value {
+				font-size: 0.85rem;
+				color: var(--text-primary);
+			}
+
+			.contact-detail__value a {
+				color: var(--cyan);
+				text-decoration: none;
+			}
+
+			.contact-detail__value a:hover {
+				color: var(--cyan-dim);
+			}
+
+			/* ── Form panel ── */
+			.contact-form-wrap {
+				animation: fadeUp 0.5s ease 0.15s both;
+			}
+
+			.contact-form .form-group {
+				margin-bottom: var(--space-lg);
+			}
+
+			.contact-form textarea {
+				resize: vertical;
+				min-height: 140px;
+				font-family: "Outfit", sans-serif;
+			}
+
+			.form-row {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: var(--space-lg);
+			}
+
+			/* Status message inside the form */
+			#formStatus {
+				display: none;
+				margin-top: var(--space-md);
+				padding: 12px 16px;
+				border-radius: var(--radius-md);
+				font-family: "JetBrains Mono", monospace;
+				font-size: 0.78rem;
+				text-align: center;
+			}
+
+			/* ── Responsive ── */
+			@media (max-width: 900px) {
+				.contact-layout {
+					grid-template-columns: 1fr;
+				}
+				.form-row {
+					grid-template-columns: 1fr;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<header class="site-header">
+			<div class="header-logo">
+				<div class="header-logo__hex">
+					<svg viewBox="0 0 44 44" fill="none">
+						<polygon
+							points="22,2 40,12 40,32 22,42 4,32 4,12"
+							stroke="rgba(0,212,255,0.5)"
+							stroke-width="1.5"
+							fill="rgba(0,212,255,0.06)"
+						/>
+					</svg>
+					<span class="header-logo__initials">BE</span>
+				</div>
+				<div class="header-logo__text">
+					<div class="header-logo__name">BlockEstate</div>
+					<div class="header-logo__tag">Land Registry Protocol</div>
+				</div>
+			</div>
+			<div class="header-right">
+				<a href="/" class="btn btn--ghost btn--sm">Login</a>
+				<div class="chain-indicator">
+					<div class="chain-indicator__dot"></div>
+					Node Active
+				</div>
+			</div>
+		</header>
+
+		<div id="notifyUser" role="alert"></div>
+
+		<main>
+			<div class="contact-layout">
+				<!-- Left: info -->
+				<div class="contact-info fade-up">
+					<div class="contact-info__eyebrow">Get In Touch</div>
+					<h1 class="contact-info__title">
+						Contact<br />
+						<span>The Team</span>
+					</h1>
+					<p class="contact-info__desc">
+						Have questions about the portal, a property dispute, or want to
+						report an issue? Reach out to the N17 team or the project guide
+						directly.
+					</p>
+
+					<div class="contact-details">
+						<!-- <div class="contact-detail">
+							<div class="contact-detail__icon">🏛</div>
+							<div>
+								<div class="contact-detail__label">Project Guide</div>
+								<div class="contact-detail__value">Siva Narayana</div>
+							</div>
+						</div> -->
+						<div class="contact-detail">
+							<div class="contact-detail__icon">👨‍💻</div>
+							<div>
+								<div class="contact-detail__label">Development Team</div>
+								<div class="contact-detail__value">DedSec</div>
+							</div>
+						</div>
+						<div class="contact-detail">
+							<div class="contact-detail__icon">⛓</div>
+							<div>
+								<div class="contact-detail__label">Network</div>
+								<div class="contact-detail__value">
+									Ethereum · Ganache Local
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Right: form -->
+				<div class="contact-form-wrap">
+					<div class="form-panel">
+						<div class="form-panel__header">
+							<h3>Send a Message</h3>
+							<p>Fill in the form and we'll get back to you.</p>
+						</div>
+						<div class="form-panel__body">
+							<form
+								id="contactForm"
+								class="contact-form"
+								onsubmit="handleContactSubmit(event)"
+							>
+								<div class="form-row">
+									<div class="form-group">
+										<label for="contactName">Name</label>
+										<input
+											type="text"
+											id="contactName"
+											name="name"
+											placeholder="Your name"
+											required
+										/>
+									</div>
+									<div class="form-group">
+										<label for="contactEmail">Email</label>
+										<input
+											type="email"
+											id="contactEmail"
+											name="email"
+											placeholder="your@email.com"
+											required
+										/>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="contactSubject">Subject</label>
+									<input
+										type="text"
+										id="contactSubject"
+										name="subject"
+										placeholder="e.g. Property dispute, Login issue…"
+										required
+									/>
+								</div>
+
+								<div class="form-group">
+									<label for="contactMessage">Message</label>
+									<textarea
+										id="contactMessage"
+										name="message"
+										placeholder="Describe your issue or question in detail…"
+										required
+									></textarea>
+								</div>
+
+								<div class="form-footer">
+									<button type="submit" class="btn btn--cta btn--block">
+										Send Message
+									</button>
+								</div>
+
+								<div id="formStatus"></div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<footer class="site-footer">
+			<div class="site-footer__inner">
+				<p>
+					BlockEstate · Built on Ethereum · Developed by DedSec
+				</p>
+				<div>
+					<a href="/about">About</a>
+					<a href="/contact">Contact</a>
+				</div>
+			</div>
+		</footer>
+
+		<script>
+			function handleContactSubmit(event) {
+				event.preventDefault();
+
+				const status = document.getElementById("formStatus");
+				const form = document.getElementById("contactForm");
+
+				// If your Flask server has a /contact POST route, replace this with a fetch()
+				// For now, show a success message and reset the form
+				status.className = "alert-success";
+				status.textContent = "Message sent. We'll get back to you shortly.";
+				status.style.display = "block";
+
+				form.reset();
+
+				// Hide the message after 5 seconds
+				setTimeout(() => {
+					status.style.display = "none";
+				}, 5000);
+			}
+		</script>
+	</body>
+</html>

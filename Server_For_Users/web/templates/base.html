@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{% block title %}{% endblock %} · BlockEstate</title>
+
+		<link
+			rel="stylesheet"
+			href="{{ url_for('static', filename='css/design-system.css') }}"
+		/>
+
+		<script src="{{ url_for('static', filename='js/contractsDetails.js') }}"></script>
+		<script src="{{ url_for('static', filename='js/web3.min.js') }}"></script>
+
+		{% block head %}{% endblock %}
+
+		<script>
+			// Wait for contracts to load before running checkConnection.
+			// This runs after all page scripts in the head block have loaded,
+			// so checkConnection() is guaranteed to be defined by this point.
+			document.addEventListener("DOMContentLoaded", async () => {
+				try {
+					await fetchContractDetails();
+				} catch (e) {
+					console.error("Failed to load contract details:", e);
+				}
+				if (typeof checkConnection === "function") {
+					checkConnection();
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<!-- Header -->
+		<header class="site-header">
+			<div class="header-logo">
+				<div class="header-logo__hex">
+					<svg viewBox="0 0 44 44" fill="none">
+						<polygon
+							points="22,2 40,12 40,32 22,42 4,32 4,12"
+							stroke="rgba(0,212,255,0.5)"
+							stroke-width="1.5"
+							fill="rgba(0,212,255,0.06)"
+						/>
+					</svg>
+					<span class="header-logo__initials">BE</span>
+				</div>
+				<div class="header-logo__text">
+					<div class="header-logo__name">BlockEstate</div>
+					<div class="header-logo__tag">Land Registry Protocol</div>
+				</div>
+			</div>
+			<div class="header-right">
+				<div class="chain-indicator">
+					<div class="chain-indicator__dot"></div>
+					Node Active
+				</div>
+			</div>
+		</header>
+
+		<!-- Nav -->
+		<nav class="site-nav">
+			<div class="site-nav__links">
+				{% if add_property %}
+				<button class="site-nav__link" onclick="toggleAddProperty()">
+					+ Register Property
+				</button>
+				{% else %}
+				<a
+					class="site-nav__link {% block nav_dashboard %}{% endblock %}"
+					href="/dashboard"
+					>Dashboard</a
+				>
+				{% endif %}
+				<a
+					class="site-nav__link {% block nav_sales %}{% endblock %}"
+					href="/MySales"
+					>My Sales</a
+				>
+				<a
+					class="site-nav__link {% block nav_requested %}{% endblock %}"
+					href="/myRequestedSales"
+					>Requested Sales</a
+				>
+				<a
+					class="site-nav__link {% block nav_marketplace %}{% endblock %}"
+					href="/availableToBuy"
+					>Marketplace</a
+				>
+				<a
+					class="site-nav__link {% block nav_about %}{% endblock %}"
+					href="/about"
+					>About</a
+				>
+				<a
+					class="site-nav__link"
+					href="/logout"
+					onclick="
+						logout();
+						return false;
+					"
+					>Disconnect</a
+				>
+			</div>
+			<div class="nav-user">
+				<span id="nameOfUser"></span>
+			</div>
+		</nav>
+
+		<!-- Global alert bar -->
+		<div id="notifyUser" role="alert"></div>
+
+		<!-- Page content -->
+		<main>{% block content %}{% endblock %}</main>
+
+		<!-- Footer -->
+		<footer class="site-footer">
+			<div class="site-footer__inner">
+				<p>BlockEstate · Built on Ethereum · © 2026</p>
+				<div>
+					<a href="/about">About</a>
+					<a href="/contact">Contact</a>
+				</div>
+			</div>
+		</footer>
+
+		<!-- Global loading overlay -->
+		<div id="loadingDiv">
+			<div class="loader-ring"></div>
+			<span id="loadingText">Loading…</span>
+		</div>
+
+		<!-- Global offer prompt modal -->
+		<div id="prompt-container-backcover">
+			<div id="prompt-container">
+				<h3>Enter Price</h3>
+				<label for="prompt-input">Price (ETH)</label>
+				<input
+					type="number"
+					id="prompt-input"
+					placeholder="0.000"
+					step="0.001"
+					min="0"
+				/>
+				<div class="prompt-actions">
+					<button id="prompt-cancel" class="btn btn--danger btn--sm">
+						Cancel
+					</button>
+					<button id="prompt-ok" class="btn btn--cta btn--sm">Confirm</button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
