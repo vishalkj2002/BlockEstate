@@ -1,8 +1,8 @@
 {
-	"Ganache_Url": "http://127.0.0.1:7545",
-	"NETWORK_CHAIN_ID": 5777,
-	"Mongo_Db_Url": "mongodb://localhost:27017",
-	"Secret_Key": "RevenueDept$123",
-	"Address_Used_To_Deploy_Contract": "0x35F1e55F5e2dD50829D6DdC406681410d4f43bbE",
-	"Admin_Password": "12345678"
+	"Ganache_Url": "<Ganache RPC Server URL>",
+	"NETWORK_CHAIN_ID": <Ganache Network ID>,
+	"Mongo_Db_Url": "MongoDB Server URL",
+	"Secret_Key": "<Set random security key for flask server>",
+	"Address_Used_To_Deploy_Contract": "<Account used to deploy the contracts>",
+	"Admin_Password": "<Password for higher govt authority>"
 }
