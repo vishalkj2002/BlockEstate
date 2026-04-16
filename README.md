@@ -178,7 +178,7 @@ Edit `admin-panel/config.json`:
   "Mongo_Db_Url": "mongodb://localhost:27017",
   "Secret_Key": "your_secret_key",
   "Address_Used_To_Deploy_Contract": "your_deployer_account_address",
-  "Admin_Password": "your_admin_password_here"
+  "Admin_Password": "your_admin_password"
 }
 ```
 
@@ -198,7 +198,7 @@ cd user-panel
 python3 app.py
 ```
 
-> 🌐 Open your browser and connect MetaMask to `http://127.0.0.1:7545` (Ganache network) to interact with the DApp
+> 🌐 Open your browser and connect MetaMask to `http://127.0.0.1:7545` (Ganache network) to interact with the DApp.
 
 ---
 
