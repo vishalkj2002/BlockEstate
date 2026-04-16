@@ -178,7 +178,7 @@ Edit `admin-panel/config.json`:
   "Mongo_Db_Url": "mongodb://localhost:27017",
   "Secret_Key": "your_secret_key",
   "Address_Used_To_Deploy_Contract": "your_deployer_account_address",
-  "Admin_Password": "your_admin_password"
+  "Admin_Password": "your_admin_password_here"
 }
 ```
 
