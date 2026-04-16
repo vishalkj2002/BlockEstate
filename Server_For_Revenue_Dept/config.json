@@ -1,8 +1,0 @@
-{
-	"Ganache_Url": "<Ganache RPC Server URL>",
-	"NETWORK_CHAIN_ID": <Ganache Network ID>,
-	"Mongo_Db_Url": "MongoDB Server URL",
-	"Secret_Key": "<Set random security key for flask server>",
-	"Address_Used_To_Deploy_Contract": "<Account used to deploy the contracts>",
-	"Admin_Password": "<Password for higher govt authority>"
-}
