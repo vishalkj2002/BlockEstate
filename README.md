@@ -149,7 +149,7 @@ cd Land-Registraion-System-with-Blockchain
 ### 3️⃣ Deploy Smart Contracts
 
 ```bash
-cd Smart_contracts
+cd smart-contracts
 truffle migrate
 ```
 
@@ -169,7 +169,7 @@ pip install -r python_package_requirements.txt
 
 ### 5️⃣ Configure the Government (Revenue Dept) Server
 
-Edit `Server_For_Revenue_Dept/config.json`:
+Edit `admin-panel/config.json`:
 
 ```json
 {
@@ -185,7 +185,7 @@ Edit `Server_For_Revenue_Dept/config.json`:
 Then run the server:
 
 ```bash
-cd Server_For_Revenue_Dept
+cd admin-panel
 python3 app.py
 ```
 
@@ -194,7 +194,7 @@ python3 app.py
 ### 6️⃣ Start the User Portal
 
 ```bash
-cd Server_For_Users
+cd user-panel
 python3 app.py
 ```
 
