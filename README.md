@@ -198,7 +198,7 @@ cd user-panel
 python3 app.py
 ```
 
-> 🌐 Open your browser and connect MetaMask to `http://127.0.0.1:7545` (Ganache network) to interact with the DApp.
+> 🌐 Open your browser and connect MetaMask to `http://127.0.0.1:7545` (Ganache network) to interact with the DApp
 
 ---
 
