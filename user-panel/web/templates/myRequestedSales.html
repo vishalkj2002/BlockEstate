@@ -1,0 +1,42 @@
+{% extends 'base.html' %} {% block title %}Requested Sales{% endblock %} {%
+block nav_requested %}active{% endblock %} {% block head %}
+<script src="{{ url_for('static', filename='js/myRequestedSales.js') }}"></script>
+<!-- FIX: DOMContentLoaded + checkConnection removed — base.html handles
+       await fetchContractDetails() then checkConnection() automatically -->
+{% endblock %} {% block content %}
+
+<div class="page-header fade-up">
+	<div class="page-header__left">
+		<div class="page-header__eyebrow">Purchase Requests</div>
+		<h2>Requested Sales</h2>
+		<p>Properties you have submitted on-chain purchase requests for.</p>
+	</div>
+</div>
+
+<div
+	id="salesTable"
+	class="data-table-wrap fade-up fade-up-1"
+	style="display: block"
+>
+	<div class="data-table-wrap__head">
+		<span class="data-table-wrap__title">My Purchase Requests</span>
+	</div>
+	<div style="overflow-x: auto">
+		<table>
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Sale ID</th>
+					<th>Property ID</th>
+					<th>Listed Price (ETH)</th>
+					<th>My Offer (ETH)</th>
+					<th>State</th>
+					<th>Options</th>
+				</tr>
+			</thead>
+			<tbody id="salesTableBody"></tbody>
+		</table>
+	</div>
+</div>
+
+{# Prompt modal lives in base.html — do not add it here #} {% endblock %}
